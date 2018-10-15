@@ -16,7 +16,22 @@
   <button data-animal="shark">shark</button>
   <div id="gifs-appear-here">
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <img 
+  
+  src="https://api.giphy.com/v1/gifs/search?q=" +
+  animal + "&api_key=dc6zaTOxFJmzC&limit=3";>
+
+  data-still= "https://api.giphy.com/v1/gifs/search?q=" +
+  animal + "&api_key=dc6zaTOxFJmzC&limit=3";>
+  
+  data-animate="https://api.giphy.com/v1/gifs/search?q=" +
+  animal + "&api_key=dc6zaTOxFJmzC&limit=3" data-state = "still" class="gif">    
+
+  <script 
+  
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
   <script type="text/javascript">
     // Adding click event listen listener to all buttons
     $("button").on("click", function() {
@@ -25,7 +40,7 @@
 
       // Constructing a queryURL using the animal name
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        animal + "&api_key=dc6zaTOxFJmzC&limit=4";
+        animal + "&api_key=dc6zaTOxFJmzC&limit=3";
 
       // Performing an AJAX request with the queryURL
       $.ajax({
@@ -61,7 +76,23 @@
             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
             $("#gifs-appear-here").prepend(animalDiv);
           }
+        
+          $(".gif").on("click", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
         });
+
     });
   </script>
 </body>
