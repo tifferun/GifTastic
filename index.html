@@ -43,22 +43,37 @@
 
     function renderButtons() {
 
-
+// /?????? Question about below...: Is this saying that the div placement for "buttonview" needs to be emtpy???
       $(".buttonview").empty();
 
-      // The function renderButtons also states that array varialbe 'animals' can is a string that can have additional variables added to it. 
+      // The function renderButtons also states that array varialbe 'animals' is a string that can have additional variables added to it. 
 
 
       for (var i = 0; i < animals.length; i++) {
 
+        //Below is a new variable declared as 'a'> This variable is using jquery to create a new button. This new button happens when the submit is hit//
+
         var a = $("<button>");
+
+      //the variable 'a' is for a button. Below says to add a class of "aniaml" to the new button. It also tells it to have an attribute of 'data-animal' and a to put the text on the physical box the same as the text typed in to create the button.//
 
         a.addClass("animal");
         a.attr("data-animal", animals[i]);
         a.text(animals[i]);
-        $(".buttonview").append(a);
+
+        // /Below is where is says to append (which means add to the end of the list) the physical view of the array of buttons to add the newest button physically on the page. //
+
+        $(".buttonview").append(a)
       }
     }
+// <!-- 
+// //     / Below is a new function that says to document that on click of submti the following activity will happen. 
+
+// First it will ??? need help clarifying what this is: 
+//     var animal = $(this).attr("data-animal"); -->
+
+//Second it will query the following URL and break down the GIF Url to add the key word of 'animal' in it so the api knows what to bring back for us. //
+
 
     $(document).on("click",".animal", function () {
 
