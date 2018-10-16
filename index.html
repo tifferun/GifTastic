@@ -3,36 +3,53 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Animal Buttons</title>
+  <!-- /Below is the title label for the browswer window// -->
+  <title>Under the Sea</title>
 </head>
-
 <body>
+  <!-- /Below is the HTML div that gives placement to the sea animal buttons on the browswer page//  -->
   <div class="buttonview">
-
   </div>
 
   <div>
-    <input type="text" class="text-box" placeholder="type your response here" />
+    <!-- /Below is the HTML input box where the user can type another sea animal. It is an input tag so information can received from the user and it is classified as a 'text-box' so the user can type the information they want to input. Text-box is one of many types of inputs. The placeholder allows text to show up in the input box as as a way of telling the user what to do.   -->
+
+    <input type="text" class="text-box" placeholder="type a sea animal here" />
+
+    <!-- /Below is the html button used to submit the input information. It is classified as a button used to  submit information/ -->
+
     <button class="submit">submit</button>
   </div>
 
+  <!-- /Below is a div that gives locaiton in the HTML of where the gifs should appear on the page/  -->
   <div id="gifs-appear-here">
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- /Below starts my javascript and is also my jquery CDN link/ -->
+
+  <script 
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- /Below declares that the script type is going to be javascript/ -->
 
   <script type="text/javascript">
 
+    // /Below is the array titled 'animals' that holds all the sea animal buttons./ 
+
     var animals = ["fish", "whale", "dolphin", "starfish", "stingray", "crab", "shark"];
+
+  // /Below is my first function. This function is called 'renderButtons'. This function says that when the broswer is loaded the page needs to display the div of buttons titled 'buttonview' in my HTML to the actual window/browser page. /  
 
     function renderButtons() {
 
 
       $(".buttonview").empty();
 
+      // The function renderButtons also states that array varialbe 'animals' can is a string that can have additional variables added to it. 
+
 
       for (var i = 0; i < animals.length; i++) {
-
 
         var a = $("<button>");
 
@@ -43,15 +60,13 @@
       }
     }
 
-
     $(document).on("click",".animal", function () {
 
       var animal = $(this).attr("data-animal");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC&limit=3";
 
 
-      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        animal + "&api_key=dc6zaTOxFJmzC&limit=3";
-
+      // This is my ajax call taht allows me to get the gifs // 
 
       $.ajax({
         url: queryURL,
@@ -60,11 +75,9 @@
 
         .then(function (response) {
           console.log(queryURL);
-
           console.log(response);
 
           var results = response.data;
-
 
           for (var i = 0; i < results.length; i++) {
             var animalDiv = $("<div>");
@@ -76,23 +89,33 @@
             animalDiv.append(p);
             animalDiv.append(animalImage);
             
+
+            // This says to find the location in the HTML where it is titled with the id of 'gifs-appear-here' and then to 'prepend' it which means to push the previous content down the page and add the new gif content to the top of the page.// 
+
             $("#gifs-appear-here").prepend(animalDiv);
           }
-
         });
-
     });
 
     $(".submit").on("click", function(event) {
      
         event.preventDefault();
+// <!-- 
+//         Below says that what ever information is typed into the classified 'text-box' should be a new value in the animal variable. It also says that it should have the end of the it trimmed to avoid uncessary spaces in the text.  -->
 
         var animal = $(".text-box").val().trim();
         
+        // Below is where the information typed into the 'text-box' is than pushed into the animal array after it has been trimmmed. 
+
         animals.push(animal);
+
+        // Below is where it states in the funciton to display the new variable added to the animal array as a button on the html. 
 
         renderButtons();
       });
+
+      //This is where I actually call the function: 'renderButtons'... previously I defined the funciton// 
+
       renderButtons()
 
     // $(".gif").on("click", function () {
